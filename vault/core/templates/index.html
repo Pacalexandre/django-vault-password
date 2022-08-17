@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
@@ -12,7 +12,10 @@
     <script src="https://unpkg.com/vue@3"></script>
 
 
-    <title>Cryptocoins</title>
+    <title>Vault</title>
+
+
+
 </head>
 
 {% verbatim %}
@@ -32,14 +35,14 @@
                     </thead>
                     <tbody>
 
-                        <tr v-for="coin in coins" :key="coin.id">
-                            <td class="align-middle">{{ coin.rank }}</td>
+                        <tr v-for=" dado in dados" :key="dado.id">
+                            <td class="align-middle">{{ dado.rank }}</td>
                             <td class="align-middle">
-                                <img :src="coin.image" class="px-2" width="50" alt=""></img>
-                                <small class="text-muted px-2">{{ coin.symbol }}</small>
-                                {{ coin.name }}
+                                <img :src="dado.image" class="px-2" width="50" alt=""></img>
+                                <small class="text-muted px-2">{{ dado.symbol }}</small>
+                                {{ dado.name }}
                             </td>
-                            <td class="align-middle" :class="{'raise': coin.state === 'raise', 'fall': coin.state === 'fall'}">{{ coin.price }}</td>
+                            <td class="align-middle">{{ dado.price }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -47,7 +50,20 @@
         </div>
     </div>
     {% endverbatim %}
-    <script src={% static 'prod.js' %}></script>
-</body>
+    <script>
+        const dados = {{dados|safe }}
+        console.log(dados)
 
+        const { createApp } = Vue;
+        const App = {
+            data () { 
+                dados: []
+            },
+            created() {
+                this.dados = {{dados| safe}}
+            }
+        }
+    createApp(App).mount('#app')
+    </script>
+</body>
 </html>
