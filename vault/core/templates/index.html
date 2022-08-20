@@ -57,7 +57,7 @@
                 dados: []
             },
             created() {
-                this.dados = {{dados| safe}}
+                this.dados = {{data_django | safe}}
             }
         }
     createApp(App).mount('#app')
